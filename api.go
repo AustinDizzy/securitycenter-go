@@ -23,6 +23,8 @@ var (
 	// TimeoutDuration is the default number of seconds to wait before requests to
 	// SecurityCenter will timeout.
 	TimeoutDuration = 90
+	// Proxy URL for client connections. Supports HTTP, HTTPS, and SOCKS.
+	Proxy *url.URL
 	// Verbose truthfulness used to determine whether to log HTTP requests to Stdout
 	Verbose     = false
 	transporter *http.Transport
@@ -34,6 +36,9 @@ func initTransporter() {
 			TLSClientConfig: &tls.Config{
 				InsecureSkipVerify: SkipSSLVerify,
 			},
+		}
+		if Proxy != nil {
+			transporter.Proxy = http.ProxyURL(Proxy)
 		}
 	}
 }

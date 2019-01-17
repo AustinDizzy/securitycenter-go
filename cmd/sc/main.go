@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"net/url"
 	"os"
 	"os/signal"
 	"syscall"
@@ -30,6 +31,7 @@ var (
 	password string
 	token    string
 	session  string
+	proxy    string
 	verbose  bool
 	skipSSL  bool
 	timeout  int
@@ -57,6 +59,7 @@ func init() {
 	flag.StringVar(&session, "session", "", "the session to use for authenticated requests")
 	flag.StringVar(&fields, "fields", "", "comma-separted value of fields to include for applicable request types")
 	flag.StringVar(&outputType, "type", "rich", "default cli output type (i.e. 'rich' for tables and graphic output, 'csv' for comma-separated values,'json' for raw JSON API responses) where supported")
+	flag.StringVar(&proxy, "proxy", "", "the proxy to send all client communications over, supports HTTP/HTTPS/SOCKS")
 	flag.BoolVar(&verbose, "verbose", false, "turn on verbose logging mode")
 	flag.BoolVar(&skipSSL, "skipSSL", false, "disable SSL verification with SC instance requests")
 	flag.IntVar(&timeout, "timeout", -1, "default number of seconds to wait before abandoning a request")
@@ -98,6 +101,14 @@ func main() {
 	sc.SkipSSLVerify = skipSSL
 	if timeout > -1 {
 		sc.TimeoutDuration = timeout
+	}
+	if len(proxy) > 1 {
+		proxyURL, err := url.Parse(proxy)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "the proxy URL \"%s\" is invalid", proxy)
+			os.Exit(1)
+		}
+		sc.Proxy = proxyURL
 	}
 	args = flag.Args()
 
