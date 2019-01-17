@@ -291,50 +291,42 @@ func parseRespToUser(data []byte) (User, error) {
 	return user, err
 }
 
-func (u *User) readAttr() (err error) {
+func (u *User) readAttr() error {
 	// read net.IPs
 	u.LastLoginIP = net.ParseIP(u.LastLoginIPStr)
 
 	// read Booleans
-	err = readBool(&u.Locked, &u.IsLocked)
+	err := readBool(&u.Locked, &u.IsLocked)
 	if err != nil {
-		return
+		return err
 	}
 
 	err = readBool(&u.MustChangePasswordStr, &u.MustChangePassword)
 	if err != nil {
-		return
+		return err
 	}
 
 	// read Unix timestamps
 	createdTime, err := strconv.ParseInt(u.CreatedTimeStr, 10, 64)
 	if err != nil {
-		return
+		return err
 	}
 	u.CreatedTime = time.Unix(createdTime, 0)
 
 	modifiedTime, err := strconv.ParseInt(u.ModifiedTimeStr, 10, 64)
 	if err != nil {
-		return
+		return err
 	}
 	u.ModifiedTime = time.Unix(modifiedTime, 0)
 
 	lastLogin, err := strconv.ParseInt(u.LastLoginStr, 10, 64)
 	if err != nil {
-		return
+		return err
 	}
 	if Verbose {
 		fmt.Printf("lastLoginStr: %s, lastLogin: %#v\n", u.LastLoginStr, lastLogin)
 	}
 	u.LastLogin = time.Unix(lastLogin, 0)
 
-	return
-}
-
-func readBool(str *string, res *bool) error {
-	var err error
-	if len(*str) > 0 {
-		*res, err = strconv.ParseBool(*str)
-	}
 	return err
 }
