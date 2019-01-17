@@ -43,7 +43,7 @@ type userPref struct {
 	Tag   string `json:"tag"`
 }
 
-// User is the application user within SecurityCenter
+// User https://docs.tenable.com/sccv/api/User.html
 type User struct {
 	ID                    string                 `json:"id" sc:"id"`
 	Status                string                 `json:"status" sc:"status"`
@@ -59,17 +59,17 @@ type User struct {
 	Country               string                 `json:"country" sc:"country"`
 	Phone                 string                 `json:"phone" sc:"phone"`
 	Fax                   string                 `json:"fax" sc:"fax"`
-	CreatedTime           time.Time              `sc:"createdTime"`
+	CreatedTime           time.Time              `json:"-" sc:"createdTime"`
 	CreatedTimeStr        string                 `json:"createdTime"`
-	ModifiedTime          time.Time              `sc:"modifiedTime"`
+	ModifiedTime          time.Time              `json:"-" sc:"modifiedTime"`
 	ModifiedTimeStr       string                 `json:"modifiedTime"`
-	LastLogin             time.Time              `sc:"lastLogin"`
+	LastLogin             time.Time              `json:"-" sc:"lastLogin"`
 	LastLoginStr          string                 `json:"lastLogin"`
-	LastLoginIP           net.IP                 `sc:"lastLoginIP"`
+	LastLoginIP           net.IP                 `json:"-" sc:"lastLoginIP"`
 	LastLoginIPStr        string                 `json:"lastLoginIP"`
-	MustChangePassword    bool                   `sc:"mustChangePassword"`
+	MustChangePassword    bool                   `json:"-" sc:"mustChangePassword"`
 	MustChangePasswordStr string                 `json:"mustChangePassword"`
-	IsLocked              bool                   `sc:"locked"`
+	IsLocked              bool                   `json:"-" sc:"locked"`
 	Locked                string                 `json:"locked"`
 	FailedLogins          string                 `json:"failedLogins" sc:"failedLogins"`
 	AuthType              string                 `json:"authType" sc:"authType"`
