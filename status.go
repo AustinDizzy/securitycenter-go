@@ -3,6 +3,7 @@ package sc
 import (
 	"encoding/json"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -42,13 +43,20 @@ type Status struct {
 
 // GetStatus returns the current SecurityCenter status
 // including license information
-func (sc *SC) GetStatus() (*Status, error) {
+func (sc *SC) GetStatus(fields ...string) (*Status, error) {
 	var (
-		resp        statusResp
-		status      *Status
-		req         = sc.NewRequest("GET", "status")
-		scResp, err = req.Do()
+		resp   statusResp
+		status *Status
+		req    = sc.NewRequest("GET", "status")
+		scResp *Response
+		err    error
 	)
+
+	if len(fields) > 0 {
+		req.data["fields"] = strings.Join(fields, ",")
+	}
+
+	scResp, err = req.Do()
 
 	if err != nil {
 		return nil, err
