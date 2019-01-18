@@ -24,9 +24,9 @@ type statusUpdate struct {
 type Status struct {
 	Jobd                            string                   `json:"jobd" sc:"jobd"`
 	LicenseStatus                   string                   `json:"licenseStatus" sc:"licenseStatus"`
-	PluginSubscriptionStatus        string                   `json:"pluginSubscriptionStatus" sc:"pluginSubscriptionStatus"`
+	PluginSubscriptionStatus        string                   `json:"PluginSubscriptionStatus" sc:"PluginSubscriptionStatus"`
 	LCEPluginSubscriptionStatus     string                   `json:"LCEPluginSubscriptionStatus" sc:"LCEPluginSubscriptionStatus"`
-	PassivePluginSubscriptionStatus string                   `json:"passivePluginSubscriptionStatus" sc:"passivePluginSubscriptionStatus"`
+	PassivePluginSubscriptionStatus string                   `json:"PassivePluginSubscriptionStatus" sc:"PassivePluginSubscriptionStatus"`
 	PluginUpdates                   map[string]*statusUpdate `json:"pluginUpdates" sc:"pluginUpdates"`
 	FeedUpdates                     statusUpdate             `json:"feedUpdates" sc:"feedUpdates"`
 	ActiveIPs                       int                      `json:"-" sc:"activeIPs"`
