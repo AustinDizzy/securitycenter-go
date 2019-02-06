@@ -75,7 +75,7 @@ type User struct {
 	AuthType              string                 `json:"authType" sc:"authType"`
 	Fingerprint           string                 `json:"fingerprint" sc:"fingerprint"`
 	Password              string                 `json:"password" sc:"password"`
-	ManagedUsersGroups    []userPropStr          `json:"managedUsersGroups" sc:"managedUsersGroups"`
+	ManagedUsersGroups    []Group                `json:"managedUsersGroups" sc:"managedUsersGroups"`
 	ManagedObjectsGroups  []userPropStr          `json:"managedObjectsGroups" sc:"managedObjectsGroups"`
 	UserPreferences       []userPref             `json:"userPrefs" sc:"userPrefs"`
 	Preferences           []userPref             `json:"preferences" sc:"preferences"`
@@ -84,7 +84,7 @@ type User struct {
 	Role                  userPropStr            `json:"role" sc:"role"`
 	ResponsibleAsset      userPropInt            `json:"responsibleAsset" sc:"responsibleAsset"`
 	Organization          userPropStr            `json:"organization" sc:"organization"`
-	Group                 userPropStr            `json:"group" sc:"group"`
+	Group                 Group                  `json:"group" sc:"group"`
 	Ldap                  map[string]interface{} `json:"ldap" sc:"ldap"`
 }
 
