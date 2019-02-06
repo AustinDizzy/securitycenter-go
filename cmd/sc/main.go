@@ -67,6 +67,8 @@ func init() {
 
 	flag.Lookup("timeout").DefValue = "90"
 
+	flag.Usage = printHelp
+
 	sigterm := make(chan os.Signal)
 	signal.Notify(sigterm, os.Interrupt, syscall.SIGTERM)
 	go func() {
