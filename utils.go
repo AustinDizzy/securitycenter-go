@@ -1,6 +1,9 @@
 package sc
 
-import "strconv"
+import (
+	"strconv"
+	"time"
+)
 
 func mergeData(data ...map[string]interface{}) map[string]interface{} {
 	result := make(map[string]interface{})
@@ -18,4 +21,17 @@ func readBool(str *string, res *bool) error {
 		*res, err = strconv.ParseBool(*str)
 	}
 	return err
+}
+
+func readTime(str *string, res *time.Time) error {
+	var err error
+	if len(*str) > 0 {
+		var intTime int64
+		intTime, err = strconv.ParseInt(*str, 10, 64)
+		if err != nil {
+			return err
+		}
+		*res = time.Unix(intTime, 0)
+	}
+	return nil
 }

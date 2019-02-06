@@ -307,26 +307,20 @@ func (u *User) readAttr() error {
 	}
 
 	// read Unix timestamps
-	createdTime, err := strconv.ParseInt(u.CreatedTimeStr, 10, 64)
+	err = readTime(&u.CreatedTimeStr, &u.CreatedTime)
 	if err != nil {
 		return err
 	}
-	u.CreatedTime = time.Unix(createdTime, 0)
 
-	modifiedTime, err := strconv.ParseInt(u.ModifiedTimeStr, 10, 64)
+	err = readTime(&u.ModifiedTimeStr, &u.ModifiedTime)
 	if err != nil {
 		return err
 	}
-	u.ModifiedTime = time.Unix(modifiedTime, 0)
 
-	lastLogin, err := strconv.ParseInt(u.LastLoginStr, 10, 64)
+	err = readTime(&u.LastLoginStr, &u.LastLogin)
 	if err != nil {
 		return err
 	}
-	if Verbose {
-		fmt.Printf("lastLoginStr: %s, lastLogin: %#v\n", u.LastLoginStr, lastLogin)
-	}
-	u.LastLogin = time.Unix(lastLogin, 0)
 
-	return err
+	return nil
 }
