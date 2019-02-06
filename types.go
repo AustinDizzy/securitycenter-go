@@ -36,7 +36,7 @@ type scResp struct {
 	Warnings  interface{} `json:"warnings,omitempty"`
 }
 
-// Result is the result returned from a raw request to SC
+// Response is the result returned from a raw request to SC
 type Response struct {
 	// Status code of the HTTP request made
 	Status int
